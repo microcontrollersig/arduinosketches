@@ -4,6 +4,7 @@ unsigned int rpm;
 bool tooslow = 1;
 
 void setup() {  
+  Serial.begin(115200);
   TCCR1A = 0;
   TCCR1B = 0;
   TCCR1B |= (1 << CS12); //Prescaler 256
