@@ -19,10 +19,11 @@
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+#include "limits.h"
 
-unsigned long rpmtime;
 float rpmfloat;
-unsigned int rpm;
+unsigned int rpm = ULONG_MAX;
+unsigned int oldrpm = ULONG_MAX;
 bool tooslow = 1;
 
 void drawtext(int x, int y, String text) {
@@ -89,14 +90,18 @@ void loop() {
     //u8x8.setCursor(1,0);
     //u8x8.print(rpm);
 
-    if (rpm < 4000) {
-      display.clearDisplay();
+    if ( (rpm < 4000) && (rpm != oldrpm)) {
       drawtext(20, 10, "RPM:  ");
       drawtext(20, 20, "TEMP:  ");
       Serial.print("rpm:");
       Serial.println(rpm);
 
+      display.setTextColor(SSD1306_BLACK);
+      drawtext(55, 10, String(oldrpm));
+      display.setTextColor(SSD1306_WHITE); 
       drawtext(55, 10, String(rpm));
+      
+      oldrpm = rpm;
       delay(1000);
     }
   }
