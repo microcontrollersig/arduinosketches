@@ -1,10 +1,3 @@
-//Serial.println(F(" Compiled " __DATE__ " at " __TIME__ " File: " __FILE__ ));
-//#include <Arduino.h>
-//#include <U8x8lib.h>
-//#include <SPI.h>
-//#include <Wire.h>
-//U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(/* reset=*/ U8X8_PIN_NONE);
-#include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
