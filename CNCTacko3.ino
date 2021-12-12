@@ -81,8 +81,6 @@ ISR(TIMER1_OVF_vect) {
 
 void loop() {
   if (tooslow == 1) {
-    //u8x8.clear();
-    //u8x8.drawString(1, 0, "SLOW!");
     if ( millis() - currentTime > 500) {
       Serial.println("SLOW!");
       drawtext(0, 0, "SLOW!");
@@ -92,10 +90,7 @@ void loop() {
   else {
     rpmfloat = 120 / (rpmtime / 31250.00);
     rpm = round(rpmfloat);
-    //u8x8.clear();
-    //u8x8.setCursor(1,0);
-    //u8x8.print(rpm);
-
+    
     if ( (rpm < 4000) && (rpm != oldrpm)  && (millis() - currentTime > 500) ) {
       drawtext(20, 10, "RPM:  ");
       drawtext(20, 20, "TEMP:  ");
