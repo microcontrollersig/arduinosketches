@@ -19,11 +19,10 @@
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-#include "limits.h"
 
 float rpmfloat;
-unsigned int rpm = ULONG_MAX;
-unsigned int oldrpm = ULONG_MAX;
+unsigned int rpm = 0;
+unsigned int oldrpm = 1;
 bool tooslow = 1;
 
 void drawtext(int x, int y, String text) {
