@@ -25,6 +25,7 @@ unsigned long rpmtime;
 unsigned int rpm = 0;
 unsigned int oldrpm = 1;
 bool tooslow = 1;
+unsigned long currentTime;
 
 void clearOldValue(int x, int y, unsigned int oldval) {
   display.setTextColor(SSD1306_BLACK);
@@ -82,9 +83,11 @@ void loop() {
   if (tooslow == 1) {
     //u8x8.clear();
     //u8x8.drawString(1, 0, "SLOW!");
-    Serial.println("SLOW!");
-    drawtext(0, 0, "SLOW!");
-    delay(1000);
+    if ( millis() - currentTime > 500) {
+      Serial.println("SLOW!");
+      drawtext(0, 0, "SLOW!");
+      currentTime = millis();
+    }
   }
   else {
     rpmfloat = 120 / (rpmtime / 31250.00);
@@ -93,7 +96,7 @@ void loop() {
     //u8x8.setCursor(1,0);
     //u8x8.print(rpm);
 
-    if ( (rpm < 4000) && (rpm != oldrpm)) {
+    if ( (rpm < 4000) && (rpm != oldrpm)  && (millis() - currentTime > 500) ) {
       drawtext(20, 10, "RPM:  ");
       drawtext(20, 20, "TEMP:  ");
       Serial.print("rpm:");
@@ -106,8 +109,6 @@ void loop() {
       
     }
   }
-
- delay(250);
 }
 
 void RPM () {
