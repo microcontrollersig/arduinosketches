@@ -103,10 +103,10 @@ void loop() {
       Serial.println(rpm);
 
       clearOldValue(55,10,oldrpm);
-      drawtext(55, 10, String(rpm));
-      
+      drawtext(55, 10, String(rpm));      
       oldrpm = rpm;
       
+      currentTime = millis();      
     }
   }
 }
