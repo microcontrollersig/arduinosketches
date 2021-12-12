@@ -21,20 +21,24 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 float rpmfloat;
+unsigned long rpmtime;
 unsigned int rpm = 0;
 unsigned int oldrpm = 1;
 bool tooslow = 1;
 
-void drawtext(int x, int y, String text) {
-  display.setCursor(x, y);     // Start at top-left corner
-  display.cp437(true);         // Use full 256 char 'Code Page 437' font
-  display.print(text);       // our display****
-  display.display();
-  delay(100);
+void clearOldValue(int x, int y, unsigned int oldval) {
+  display.setTextColor(SSD1306_BLACK);
+  display.setCursor(x, y);     
+  display.print(oldval);       
+  display.setTextColor(SSD1306_WHITE);
 }
 
-
-
+void drawtext(int x, int y, String text) {
+  display.setCursor(x, y);     
+  display.print(text);       
+  display.display();
+  
+}
 
 void setup() {
   //u8x8.begin();
@@ -95,15 +99,15 @@ void loop() {
       Serial.print("rpm:");
       Serial.println(rpm);
 
-      display.setTextColor(SSD1306_BLACK);
-      drawtext(55, 10, String(oldrpm));
-      display.setTextColor(SSD1306_WHITE); 
+      clearOldValue(55,10,oldrpm);
       drawtext(55, 10, String(rpm));
       
       oldrpm = rpm;
-      delay(1000);
+      
     }
   }
+
+ delay(250);
 }
 
 void RPM () {
