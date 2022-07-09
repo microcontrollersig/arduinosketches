@@ -11,7 +11,7 @@ void setup(void)
       // will pause Zero, Leonardo, etc until serial console opens
       delay(1);
   }
-  Serial.print line(F(" Compiled " __DATE__ " at " __TIME__ "File: " __FILE__ ));
+  Serial.println(F(" Compiled " __DATE__ " at " __TIME__ "File: " __FILE__ ));
   //uint32_t currentFrequency;
     
   //Serial.println("Hello!");
